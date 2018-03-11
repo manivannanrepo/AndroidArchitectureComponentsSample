@@ -21,14 +21,12 @@ import apps.mani.com.arch.db.MyDatabase;
 public class MyViewModel extends AndroidViewModel {
 
     private MyDatabase myDatabase;
-
+    public boolean isLoading;
     private LiveData<List<Fruits>> liveFruitsList;
 
     public MyViewModel(@NonNull Application application) {
         super(application);
-
         initDB();
-
         subscribeToGetFruits();
     }
 
@@ -36,12 +34,13 @@ public class MyViewModel extends AndroidViewModel {
         liveFruitsList = myDatabase.fruitsModel().getFruits();
     }
 
-    private void initDB() {
+    public void initDB() {
         myDatabase = MyDatabase.getInMemoryDatabase(this.getApplication());
-        DatabaseInitialiser.populateTestDate(myDatabase);
+        DatabaseInitialiser.populateTestData(myDatabase);
     }
 
     public LiveData<List<Fruits>> getFruits(){
+        isLoading = false;
         return liveFruitsList;
     }
 }

@@ -34,7 +34,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
-        myViewHolder.textView.setText(String.format("%s", fruits.get(position).getFruitName()));
+        myViewHolder.id.setText(String.format("%s", fruits.get(position).getId()));
+        myViewHolder.name.setText(String.format("%s", fruits.get(position).getFruitName()));
+        myViewHolder.price.setText(String.format("%s", fruits.get(position).getPrice()));
     }
 
     @Override
@@ -43,11 +45,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView id;
+        TextView name;
+        TextView price;
 
         MyViewHolder(View view) {
             super(view);
-            textView = view.findViewById(R.id.textview01);
+            id = view.findViewById(R.id.tableid);
+            name = view.findViewById(R.id.name);
+            price = view.findViewById(R.id.price);
         }
     }
 }
