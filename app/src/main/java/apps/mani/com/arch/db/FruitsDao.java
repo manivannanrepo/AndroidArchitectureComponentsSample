@@ -22,7 +22,7 @@ public interface FruitsDao {
     @Query("select * from fruits")
     LiveData<List<Fruits>> getFruits();
 
-    @Query("select * from fruits where id= :id")
+    @Query("select * from fruits where fruitId= :id")
     Fruits getFruitByID(int id);
 
     @Update(onConflict = REPLACE)
@@ -31,7 +31,7 @@ public interface FruitsDao {
     @Insert(onConflict = IGNORE)
     void insertFruit(Fruits...fruits);
 
-    @Query("delete from fruits where id = :id")
+    @Query("delete from fruits where fruitId = :id")
     int deleteFruitById(int id);
     @Query("delete from fruits")
     void deleteAll();

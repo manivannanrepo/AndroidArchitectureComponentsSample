@@ -1,8 +1,12 @@
 package apps.mani.com.arch.activity;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
 import apps.mani.com.arch.R;
+import apps.mani.com.arch.databinding.ActivityMainBinding;
 import apps.mani.com.arch.db.Fruits;
 import apps.mani.com.arch.db.MyDatabase;
 import apps.mani.com.arch.viewmodels.MyViewModel;
@@ -23,23 +28,25 @@ import apps.mani.com.arch.viewmodels.MyViewModel;
  */
 
 public class MyActivity extends AppCompatActivity {
+
+    private MyViewModel myViewModel;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private MyViewModel myViewModel;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        ActivityMainBinding activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        recyclerView = activityMainBinding.recyclerView;
+        swipeRefreshLayout = activityMainBinding.swipeRefresh;
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
+
         myViewModel.getFruits().observe(this, (List<Fruits> fruits) -> {
                 populateList(fruits);
-                swipeRefreshLayout.setRefreshing(false);
+            swipeRefreshLayout.setRefreshing(false);
         });
 
-        recyclerView = findViewById(R.id.recyclerview);
-        swipeRefreshLayout = findViewById(R.id.swiperefresh);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);

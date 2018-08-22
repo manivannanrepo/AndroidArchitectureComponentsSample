@@ -2,6 +2,7 @@ package apps.mani.com.arch.db;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.databinding.BaseObservable;
 
 /**
  * Created by GAMING RIG on 11-03-2018.
@@ -10,22 +11,24 @@ import android.arch.persistence.room.PrimaryKey;
 public class Fruits {
 
     @PrimaryKey
-    private int id;
+    private int fruitId;
     private String fruitName;
     private Double price;
 
-    Fruits(int id,String fruitName,Double price){
-        this.id = id;
+
+
+    Fruits(int fruitId,String fruitName,Double price){
+        this.fruitId = fruitId;
         this.fruitName = fruitName;
         this.price = price;
     }
 
-    public int getId() {
-        return id;
+    public int getFruitId() {
+        return fruitId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFruitId(int id) {
+        this.fruitId = id;
     }
 
     public String getFruitName() {
